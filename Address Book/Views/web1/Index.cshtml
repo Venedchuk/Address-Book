@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "web1";
+}
+@model  IEnumerable<Address_Book.Models.User>
+<div class="jumbotron">
+
+</div>
+
+<div>
+    <b>Users</b>
+    <br />
+</div>
+<table class="table table-bordered table-responsive table-hover">
+    <tr>
+        <th>User Id </th>
+        <th>Name </th>
+        <th>Phone</th>
+    </tr>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.Name</td>
+            @{
+                System.Text.StringBuilder phonesStr = new System.Text.StringBuilder();
+            }
+            @foreach (var phone in user.Phones)
+            {
+                if (phone.IsActive)
+                {
+                    phonesStr.Append($"{phone.PhoneNumber} ");
+                }
+                else
+                {
+                    phonesStr.Append($"<s>{phone.PhoneNumber}</s> ");
+
+                }
+            }
+        <td>@Html.Raw(phonesStr.ToString())</td>
+        </tr>
+    }
+</table>
